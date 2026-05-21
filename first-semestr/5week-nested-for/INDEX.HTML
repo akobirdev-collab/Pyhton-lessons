@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mr. Akobir — Full‑Stack • AI Prompt Engineer • ML Specialist</title>
+  <meta name="description" content="Mr. Akobir — Full‑Stack Developer, AI Prompt Engineer, Machine Learning Specialist. Portfolio, CV/Resume, ijtimoiy tarmoqlar, kurslar va aloqa." />
+
+  <!-- TailwindCSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Inter", "ui-sans-serif", "system-ui", "-apple-system"],
+          },
+          colors: {
+            brand: {
+              50: "#eef2ff",
+              100: "#e0e7ff",
+              200: "#c7d2fe",
+              300: "#a5b4fc",
+              400: "#818cf8",
+              500: "#6366f1",
+              600: "#4f46e5",
+              700: "#4338ca",
+              800: "#3730a3",
+              900: "#312e81",
+            },
+          },
+          boxShadow: {
+            'glass': '0 10px 30px rgba(0,0,0,.25)',
+          },
+          backdropBlur: {
+            xs: '2px',
+          },
+        },
+      },
+      darkMode: 'class',
+    }
+  </script>
+  <!-- Inter font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Smooth scroll */
+    html { scroll-behavior: smooth; }
+
+    /* Animated gradient background */
+    .bg-animated {
+      background: radial-gradient(1200px 800px at 10% 10%, rgba(99,102,241,.25), transparent 60%),
+                  radial-gradient(1000px 600px at 90% 20%, rgba(236,72,153,.20), transparent 60%),
+                  radial-gradient(900px 600px at 20% 90%, rgba(34,197,94,.16), transparent 60%),
+                  linear-gradient(120deg, #0b1023 0%, #0a0f1e 100%);
+      background-size: 200% 200%;
+      animation: gradientMove 20s ease infinite;
+    }
+    @keyframes gradientMove {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 0%; }
+    }
+
+    /* Glassmorphism card */
+    .glass {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    /* MacOS-style toggle ripple */
+    .toggle-ring:focus-visible { box-shadow: 0 0 0 6px rgba(99,102,241,.35); }
+
+    /* Floating 3D icons */
+    .float { animation: float 6s ease-in-out infinite; }
+    @keyframes float {
+      0%,100% { transform: translateY(0) translateZ(0); }
+      50% { transform: translateY(-10px) translateZ(10px); }
+    }
+
+    /* Hover lift */
+    .hover-lift { transition: transform .35s, box-shadow .35s; }
+    .hover-lift:hover { transform: translateY(-6px); box-shadow: 0 20px 45px rgba(0,0,0,.25); }
+
+    /* Section reveal */
+    .reveal { opacity: 0; transform: translateY(16px); transition: all .8s ease; }
+    .reveal.show { opacity: 1; transform: none; }
+  </style>
+</head>
+<body class="dark:bg-[#0b1023] bg-gray-50 text-gray-900 dark:text-gray-100 selection:bg-brand-500/30 selection:text-white">
+
+  <!-- Animated particles canvas -->
+  <canvas id="bgCanvas" class="fixed inset-0 -z-10 opacity-60"></canvas>
+
+  <!-- Top nav -->
+  <header class="sticky top-0 z-40 backdrop-blur-md bg-white/60 dark:bg-black/30 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+      <a href="#home" class="font-extrabold tracking-tight text-lg sm:text-xl">Mr. <span class="text-brand-400">Akobir</span></a>
+      <nav class="hidden md:flex gap-6 text-[15px]">
+        <a href="#about" class="hover:text-brand-400">About</a>
+        <a href="#services" class="hover:text-brand-400">Services</a>
+        <a href="#portfolio" class="hover:text-brand-400">Portfolio</a>
+        <a href="#resume" class="hover:text-brand-400">Resume</a>
+        <a href="#courses" class="hover:text-brand-400">Courses</a>
+        <a href="#contact" class="hover:text-brand-400">Contact</a>
+      </nav>
+      <div class="flex items-center gap-2">
+        <button id="themeToggle" aria-label="Switch theme" class="toggle-ring rounded-xl p-2 hover:bg-black/5 dark:hover:bg-white/5">
+          <i data-lucide="moon"></i>
+        </button>
+        <a href="#contact" class="hidden sm:inline-flex items-center gap-2 rounded-xl px-3 py-2 bg-brand-600 hover:bg-brand-500 text-white text-sm shadow-glass hover-lift">
+          <i data-lucide="sparkles"></i>
+          <span>Hire Me</span>
+        </a>
+        <button id="openMenu" class="md:hidden p-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5" aria-label="Open menu">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile menu -->
+  <div id="mobileMenu" class="md:hidden fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/60" onclick="toggleMenu(false)"></div>
+    <div class="absolute right-0 top-0 h-full w-72 p-6 bg-white dark:bg-[#0e142c] border-l border-white/10 shadow-2xl">
+      <div class="flex items-center justify-between">
+        <div class="font-bold">Navigate</div>
+        <button onclick="toggleMenu(false)" class="p-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5"><i data-lucide="x"></i></button>
+      </div>
+      <nav class="mt-6 grid gap-3 text-[15px]">
+        <a class="p-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5" href="#about" onclick="toggleMenu(false)">About</a>
+        <a class="p-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5" href="#services" onclick="toggleMenu(false)">Services</a>
+        <a class="p-2 rounded-lg hover:bg-black/5 dark:hover:bg:white/5" href="#portfolio" onclick="toggleMenu(false)">Portfolio</a>
+        <a class="p-2 rounded-lg hover:bg-black/5 dark:hover:bg:white/5" href="#resume" onclick="toggleMenu(false)">Resume</a>
+        <a class="p-2 rounded-lg hover:bg-black/5 dark:hover:bg:white/5" href="#courses" onclick="toggleMenu(false)">Courses</a>
+        <a class="p-2 rounded-lg hover:bg-black/5 dark:hover:bg:white/5" href="#contact" onclick="toggleMenu(false)">Contact</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section id="home" class="relative bg-animated">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 sm:py-36">
+      <div class="grid lg:grid-cols-2 items-center gap-10">
+        <div class="reveal">
+          <div class="inline-flex items-center gap-2 text-xs px-3 py-1 rounded-full bg-white/10 border border-white/10 backdrop-blur-md">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            Available for freelance & remote work
+          </div>
+          <h1 class="mt-5 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
+            Mr. Akobir —
+            <span class="block text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-fuchsia-400 to-emerald-400">Full‑Stack Developer • AI Prompt Engineer • ML Specialist</span>
+          </h1>
+          <p class="mt-5 text-base sm:text-lg text-gray-300 max-w-2xl">
+            Django/FastAPI • React/Node • Linux/Kali • TensorFlow/PyTorch • LLM Prompt Engineering • Data Science • Automation & Bots.
+          </p>
+          <div class="mt-7 flex flex-wrap gap-3">
+            <a href="#portfolio" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white text-gray-900 hover:bg-gray-100 hover-lift">
+              <i data-lucide="grid"></i>
+              View Portfolio
+            </a>
+            <a href="#resume" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand-600 text-white hover:bg-brand-500 hover-lift">
+              <i data-lucide="file-text"></i>
+              Download CV
+            </a>
+          </div>
+          <div class="mt-8 flex flex-wrap items-center gap-4 text-sm text-gray-300">
+            <span class="inline-flex items-center gap-2 float"><i data-lucide="patreon"></i> MacOS‑style UI</span>
+            <span class="inline-flex items-center gap-2 float" style="animation-delay:.6s"><i data-lucide="cpu"></i> AI + ML</span>
+            <span class="inline-flex items-center gap-2 float" style="animation-delay:1.2s"><i data-lucide="layers"></i> Full‑Stack</span>
+          </div>
+        </div>
+
+        <div class="reveal lg:justify-self-end">
+          <div class="glass rounded-3xl p-6 md:p-8 hover-lift max-w-md mx-auto">
+            <div class="aspect-square rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/10 grid place-items-center">
+              <div class="text-center">
+                <div class="mx-auto w-28 h-28 rounded-2xl bg-white/10 grid place-items-center mb-4">
+                  <i data-lucide="user-cog" class="w-12 h-12"></i>
+                </div>
+                <p class="text-sm text-gray-300">Futuristic developer portfolio with</p>
+                <p class="font-semibold">3D floating icons • Glassmorphism • Soft shadow UI</p>
+                <p class="text-sm mt-2 text-gray-300">Responsive Next‑gen animations • Particle background</p>
+              </div>
+            </div>
+            <div class="mt-6 grid grid-cols-3 gap-3 text-center text-xs">
+              <div class="rounded-xl bg-white/5 p-3 border border-white/10">
+                <i data-lucide="python" class="mx-auto"></i>
+                <div class="mt-1">Python</div>
+              </div>
+              <div class="rounded-xl bg-white/5 p-3 border border-white/10">
+                <i data-lucide="library-big" class="mx-auto"></i>
+                <div class="mt-1">TensorFlow</div>
+              </div>
+              <div class="rounded-xl bg-white/5 p-3 border border-white/10">
+                <i data-lucide="brain-circuit" class="mx-auto"></i>
+                <div class="mt-1">LLMs</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        <div class="reveal">
+          <h2 class="text-3xl sm:text-4xl font-extrabold">About Me</h2>
+          <p class="mt-4 text-gray-300">Men — Full‑Stack dasturchi, AI Prompt Engineer va Machine Learning mutaxassisiman. Backendda Django/FastAPI, frontendda React/Next.js, DevOpsda Linux va Docker bilan ishlayman. Sunʼiy intellekt loyihalarida LLMlar, vektor qidiruv, RAG va model fine‑tuninglarni qo‘llayman.</p>
+          <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <span class="glass rounded-xl px-3 py-2 text-sm">Python</span>
+            <span class="glass rounded-xl px-3 py-2 text-sm">Django / FastAPI</span>
+            <span class="glass rounded-xl px-3 py-2 text-sm">React / Next.js</span>
+            <span class="glass rounded-xl px-3 py-2 text-sm">PostgreSQL / MySQL</span>
+            <span class="glass rounded-xl px-3 py-2 text-sm">TensorFlow / PyTorch</span>
+            <span class="glass rounded-xl px-3 py-2 text-sm">Docker / Linux / Kali</span>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="glass rounded-3xl p-6">
+            <h3 class="font-semibold">Quick Stats</h3>
+            <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+              <div class="rounded-2xl bg-white/5 p-5 border border-white/10 hover-lift">
+                <div class="text-3xl font-extrabold">5+</div>
+                <div class="text-xs text-gray-300">Years exp</div>
+              </div>
+              <div class="rounded-2xl bg-white/5 p-5 border border-white/10 hover-lift">
+                <div class="text-3xl font-extrabold">40+</div>
+                <div class="text-xs text-gray-300">Projects</div>
+              </div>
+              <div class="rounded-2xl bg-white/5 p-5 border border-white/10 hover-lift">
+                <div class="text-3xl font-extrabold">10+</div>
+                <div class="text-xs text-gray-300">AI/ML apps</div>
+              </div>
+              <div class="rounded-2xl bg-white/5 p-5 border border-white/10 hover-lift">
+                <div class="text-3xl font-extrabold">100%</div>
+                <div class="text-xs text-gray-300">Remote‑ready</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="py-20 bg-white/5 dark:bg-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-center">Services</h2>
+      <p class="mt-3 text-center text-gray-300">Full‑Stack Web • AI Prompt Engineering • Machine Learning • Automation & Bots</p>
+      <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="glass rounded-2xl p-6 hover-lift">
+          <i data-lucide="layers" class="w-6 h-6"></i>
+          <h3 class="mt-3 font-semibold">Full‑Stack Development</h3>
+          <p class="text-sm text-gray-300 mt-2">Django/FastAPI, React/Next.js, REST/GraphQL, PostgreSQL/MySQL.</p>
+        </div>
+        <div class="glass rounded-2xl p-6 hover-lift">
+          <i data-lucide="bot" class="w-6 h-6"></i>
+          <h3 class="mt-3 font-semibold">AI Prompt Engineering</h3>
+          <p class="text-sm text-gray-300 mt-2">LLM dizayn, sistem promtlar, RAG, kontekst boshqaruvi.</p>
+        </div>
+        <div class="glass rounded-2xl p-6 hover-lift">
+          <i data-lucide="brain-circuit" class="w-6 h-6"></i>
+          <h3 class="mt-3 font-semibold">Machine Learning</h3>
+          <p class="text-sm text-gray-300 mt-2">Klassifikatsiya, NLP, kompyuter ko‘rish, MLOps.</p>
+        </div>
+        <div class="glass rounded-2xl p-6 hover-lift">
+          <i data-lucide="zap" class="w-6 h-6"></i>
+          <h3 class="mt-3 font-semibold">Automation & Bots</h3>
+          <p class="text-sm text-gray-300 mt-2">Telegram/Discord botlar, web‑scraping, ETL pipeline.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section id="portfolio" class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-end justify-between flex-wrap gap-4">
+        <div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold">Portfolio</h2>
+          <p class="text-gray-300 mt-2">Tanlangan loyihalar — Web, AI, ML</p>
+        </div>
+        <div class="flex gap-2">
+          <button data-filter="all" class="filter-btn px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-sm">All</button>
+          <button data-filter="web" class="filter-btn px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-sm">Web</button>
+          <button data-filter="ai" class="filter-btn px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-sm">AI</button>
+          <button data-filter="ml" class="filter-btn px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-sm">ML</button>
+        </div>
+      </div>
+
+      <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Card -->
+        <a href="#" class="project group block rounded-2xl overflow-hidden border border-white/10 bg-white/5 hover-lift" data-cat="web">
+          <div class="relative aspect-[16/10] overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1529101091764-c3526daf38fe?q=80&w=1200&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Project"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+              <div>
+                <div class="text-white font-semibold">SaaS Dashboard</div>
+                <div class="text-white/80 text-xs">Django + React</div>
+              </div>
+              <i data-lucide="external-link" class="text-white"></i>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="project group block rounded-2xl overflow-hidden border border-white/10 bg-white/5 hover-lift" data-cat="ai">
+          <div class="relative aspect-[16/10] overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1200&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="AI"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+              <div>
+                <div class="text-white font-semibold">LLM Chat Assistant</div>
+                <div class="text-white/80 text-xs">RAG + Prompt Engineering</div>
+              </div>
+              <i data-lucide="external-link" class="text-white"></i>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="project group block rounded-2xl overflow-hidden border border-white/10 bg-white/5 hover-lift" data-cat="ml">
+          <div class="relative aspect-[16/10] overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981d?q=80&w=1200&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="ML"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+              <div>
+                <div class="text-white font-semibold">Image Classifier</div>
+                <div class="text-white/80 text-xs">PyTorch + FastAPI</div>
+              </div>
+              <i data-lucide="external-link" class="text-white"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resume / CV -->
+  <section id="resume" class="py-20 bg-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between flex-wrap gap-4">
+        <h2 class="text-3xl sm:text-4xl font-extrabold">Resume / CV</h2>
+        <a href="./Mr_Akobir_CV.pdf" download class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white hover-lift"><i data-lucide="download"></i> Download PDF</a>
+      </div>
+      <div class="mt-10 grid lg:grid-cols-2 gap-6">
+        <div class="glass rounded-2xl p-6">
+          <h3 class="font-semibold">Experience</h3>
+          <ol class="mt-4 relative border-s border-white/10">
+            <li class="ms-6 mb-6">
+              <span class="absolute -start-3 w-6 h-6 rounded-full bg-brand-600 grid place-items-center"><i data-lucide="briefcase" class="w-4 h-4"></i></span>
+              <h4 class="font-semibold">Senior Full‑Stack Developer — Freelance</h4>
+              <p class="text-sm text-gray-300">2022 — Present</p>
+              <p class="text-sm mt-2">SaaS platformalar, e‑commerce, real‑time dasturni ishlab chiqish.</p>
+            </li>
+            <li class="ms-6 mb-6">
+              <span class="absolute -start-3 w-6 h-6 rounded-full bg-brand-600 grid place-items-center"><i data-lucide="cpu" class="w-4 h-4"></i></span>
+              <h4 class="font-semibold">AI/ML Engineer — Projects</h4>
+              <p class="text-sm text-gray-300">2021 — 2024</p>
+              <p class="text-sm mt-2">LLM chatbotlar, NLP pipeline, kompyuter ko‘rish, MLOps.</p>
+            </li>
+          </ol>
+        </div>
+        <div class="glass rounded-2xl p-6">
+          <h3 class="font-semibold">Education & Skills</h3>
+          <ul class="mt-4 space-y-3 text-sm">
+            <li class="flex items-center justify-between">
+              <span>Python / Django / FastAPI</span>
+              <span class="w-40 h-2 bg-white/10 rounded-full overflow-hidden"><span class="block h-full bg-brand-500" style="width:92%"></span></span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>React / Next.js</span>
+              <span class="w-40 h-2 bg-white/10 rounded-full overflow-hidden"><span class="block h-full bg-brand-500" style="width:88%"></span></span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>TensorFlow / PyTorch</span>
+              <span class="w-40 h-2 bg-white/10 rounded-full overflow-hidden"><span class="block h-full bg-brand-500" style="width:84%"></span></span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>DevOps (Linux, Docker)</span>
+              <span class="w-40 h-2 bg-white/10 rounded-full overflow-hidden"><span class="block h-full bg-brand-500" style="width:78%"></span></span>
+            </li>
+          </ul>
+          <div class="mt-6 text-sm text-gray-300">Bakalavr/Magistr (ta’lim tafsilotlarini bu yerga joylashtiring).</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Courses -->
+  <section id="courses" class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-center">Courses & Certificates</h2>
+      <p class="mt-3 text-center text-gray-300">Coursera • Google • Udemy • Kaggle</p>
+      <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="glass rounded-2xl p-6 hover-lift">
+          <div class="text-sm text-gray-300">Coursera</div>
+          <div class="font-semibold">Machine Learning Specialization</div>
+          <a href="#" class="text-xs text-brand-300 underline">View certificate</a>
+        </div>
+        <div class="glass rounded-2xl p-6 hover-lift">
+          <div class="text-sm text-gray-300">Google</div>
+          <div class="font-semibold">TensorFlow Developer Certificate</div>
+          <a href="#" class="text-xs text-brand-300 underline">View certificate</a>
+        </div>
+        <div class="glass rounded-2xl p-6 hover-lift">
+          <div class="text-sm text-gray-300">Udemy</div>
+          <div class="font-semibold">Django + React Full‑Stack</div>
+          <a href="#" class="text-xs text-brand-300 underline">View certificate</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-20 bg-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="lg:flex lg:items-center lg:justify-between gap-10">
+        <div class="reveal max-w-2xl">
+          <h2 class="text-3xl sm:text-4xl font-extrabold">Contact</h2>
+          <p class="mt-3 text-gray-300">Savollar, hamkorlik va loyihalar uchun yozing.</p>
+          <div class="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
+            <a href="https://github.com/username" class="glass rounded-xl px-3 py-2 inline-flex items-center gap-2 hover-lift"><i data-lucide="github"></i> GitHub</a>
+            <a href="https://linkedin.com/in/username" class="glass rounded-xl px-3 py-2 inline-flex items-center gap-2 hover-lift"><i data-lucide="linkedin"></i> LinkedIn</a>
+            <a href="https://t.me/username" class="glass rounded-xl px-3 py-2 inline-flex items-center gap-2 hover-lift"><i data-lucide="send"></i> Telegram</a>
+            <a href="mailto:hello@example.com" class="glass rounded-xl px-3 py-2 inline-flex items-center gap-2 hover-lift"><i data-lucide="mail"></i> Email</a>
+          </div>
+        </div>
+
+        <form class="reveal mt-10 lg:mt-0 glass rounded-2xl p-6 max-w-xl w-full grid gap-4" onsubmit="event.preventDefault(); alert('Thanks! Your message has been conceptually sent. Replace this with real backend.');">
+          <div>
+            <label class="text-sm">Ism</label>
+            <input required class="mt-1 w-full rounded-xl bg-white/10 border border-white/15 px-3 py-2 outline-none focus:border-brand-400" placeholder="Ismingiz" />
+          </div>
+          <div>
+            <label class="text-sm">Email</label>
+            <input type="email" required class="mt-1 w-full rounded-xl bg-white/10 border border-white/15 px-3 py-2 outline-none focus:border-brand-400" placeholder="email@example.com" />
+          </div>
+          <div>
+            <label class="text-sm">Xabar</label>
+            <textarea required rows="4" class="mt-1 w-full rounded-xl bg-white/10 border border-white/15 px-3 py-2 outline-none focus:border-brand-400" placeholder="Salom..."></textarea>
+          </div>
+          <button class="rounded-xl px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white hover-lift"><i data-lucide="send"></i> Yuborish</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-10 text-center text-sm text-gray-400">
+    © <span id="year"></span> Mr. Akobir. All rights reserved.
+  </footer>
+
+  <script>
+    // Icons
+    lucide.createIcons();
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const root = document.documentElement;
+    function setTheme(dark) {
+      if (dark) root.classList.add('dark'); else root.classList.remove('dark');
+      localStorage.setItem('prefers-dark', dark ? '1' : '0');
+      themeToggle.innerHTML = '';
+      const icon = document.createElement('i');
+      icon.setAttribute('data-lucide', dark ? 'sun' : 'moon');
+      themeToggle.appendChild(icon); lucide.createIcons();
+    }
+    setTheme(localStorage.getItem('prefers-dark') !== '0');
+    themeToggle.addEventListener('click', () => setTheme(!root.classList.contains('dark')));
+
+    // Mobile menu
+    const mobileMenu = document.getElementById('mobileMenu');
+    const openMenuBtn = document.getElementById('openMenu');
+    function toggleMenu(show){ mobileMenu.classList.toggle('hidden', show===false); }
+    openMenuBtn.addEventListener('click', () => toggleMenu());
+
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('show'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // Portfolio filter
+    document.querySelectorAll('.filter-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const cat = btn.dataset.filter;
+        document.querySelectorAll('.project').forEach(card=>{
+          card.classList.toggle('hidden', !(cat==='all' || card.dataset.cat===cat));
+        })
+      })
+    })
+
+    // Simple particle background
+    const c = document.getElementById('bgCanvas');
+    const ctx = c.getContext('2d');
+    let w,h,particles=[];
+    function resize(){ w= c.width = innerWidth; h = c.height = innerHeight; }
+    addEventListener('resize', resize); resize();
+    function makeParticles(n=90){
+      particles = Array.from({length:n}, ()=>({
+        x: Math.random()*w,
+        y: Math.random()*h,
+        vx: (Math.random()-.5)*0.6,
+        vy: (Math.random()-.5)*0.6,
+        r: Math.random()*2+0.5,
+      }));
+    }
+    makeParticles();
+    function step(){
+      ctx.clearRect(0,0,w,h);
+      ctx.fillStyle = 'rgba(255,255,255,0.7)';
+      ctx.strokeStyle = 'rgba(99,102,241,0.25)';
+      for(const p of particles){
+        p.x+=p.vx; p.y+=p.vy;
+        if(p.x<0||p.x>w) p.vx*=-1;
+        if(p.y<0||p.y>h) p.vy*=-1;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+      }
+      // lines
+      for(let i=0;i<particles.length;i++){
+        for(let j=i+1;j<particles.length;j++){
+          const a=particles[i], b=particles[j];
+          const dx=a.x-b.x, dy=a.y-b.y; const d=Math.hypot(dx,dy);
+          if(d<120){ ctx.globalAlpha = 1 - d/120; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); ctx.globalAlpha=1; }
+        }
+      }
+      requestAnimationFrame(step);
+    }
+    step();
+  </script>
+</body>
+</html>
