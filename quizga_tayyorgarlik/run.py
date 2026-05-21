@@ -91,5 +91,3 @@
 #            print("parolingiz kuchsiz")
 #n=input("Parol kiriting: ").strip()
 #pass_check()
-#
-#
